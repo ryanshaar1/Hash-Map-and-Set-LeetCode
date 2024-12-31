@@ -1,13 +1,12 @@
-class Solution(object):
+from collections import Counter
+
+class Solution:
     def equalPairs(self, grid):
-        columns = [[] for _ in range(len(grid[0]))]
-        for i in range(len(grid[0])):
-            for j in range(len(grid[0])):
-                columns[i].append(grid[j][i])
+        row_count = Counter(tuple(row) for row in grid)
         
         count = 0
-        for row in grid:
-            for column in columns:
-                if row == column:
-                    count += 1
+        for col_idx in range(len(grid[0])):
+            column = tuple(grid[row_idx][col_idx] for row_idx in range(len(grid)))
+            count += row_count[column]
+        
         return count
